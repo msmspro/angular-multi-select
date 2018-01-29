@@ -122,104 +122,17 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                 $scope.updateFilter();
             }
 
-            $scope.updateFilter = function()
-            {
-                // we check by looping from end of input-model
-                $scope.filteredModel = [];
-                var i = 0;
+			$scope.updateFilter = function() {
+				if ( $scope.inputLabel.labelFilter.length >= vMinSearchLength ) {
+					$scope.filteredModel = $scope.inputModel;
 
-                if ( typeof $scope.inputModel === 'undefined' ) {
-                    return false;
-                }
-
-                for( i = $scope.inputModel.length - 1; i >= 0; i-- ) {
-
-                    // if it's group end, we push it to filteredModel[];
-                    if ( typeof $scope.inputModel[ i ][ attrs.groupProperty ] !== 'undefined' && $scope.inputModel[ i ][ attrs.groupProperty ] === false ) {
-                        $scope.filteredModel.push( $scope.inputModel[ i ] );
-                    }
-
-                    // if it's data
-                    var gotData = false;
-                    if ( typeof $scope.inputModel[ i ][ attrs.groupProperty ] === 'undefined' ) {
-
-                        // If we set the search-key attribute, we use this loop.
-                        if ( typeof attrs.searchProperty !== 'undefined' && attrs.searchProperty !== '' ) {
-
-                            for (var key in $scope.inputModel[ i ]  ) {
-                                if (
-                                    typeof $scope.inputModel[ i ][ key ] !== 'boolean'
-                                    && String( $scope.inputModel[ i ][ key ] ).toUpperCase().indexOf( $scope.inputLabel.labelFilter.toUpperCase() ) >= 0
-                                    && attrs.searchProperty.indexOf( key ) > -1
-                                ) {
-                                    gotData = true;
-                                    break;
-                                }
-                            }
-                        }
-                        // if there's no search-key attribute, we use this one. Much better on performance.
-                        else {
-                            for ( var key in $scope.inputModel[ i ]  ) {
-                                if (
-                                    typeof $scope.inputModel[ i ][ key ] !== 'boolean'
-                                    && String( $scope.inputModel[ i ][ key ] ).toUpperCase().indexOf( $scope.inputLabel.labelFilter.toUpperCase() ) >= 0
-                                ) {
-                                    gotData = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if ( gotData === true ) {
-                            // push
-                            $scope.filteredModel.push( $scope.inputModel[ i ] );
-                        }
-                    }
-
-                    // if it's group start
-                    if ( typeof $scope.inputModel[ i ][ attrs.groupProperty ] !== 'undefined' && $scope.inputModel[ i ][ attrs.groupProperty ] === true ) {
-
-                        if ( typeof $scope.filteredModel[ $scope.filteredModel.length - 1 ][ attrs.groupProperty ] !== 'undefined'
-                                && $scope.filteredModel[ $scope.filteredModel.length - 1 ][ attrs.groupProperty ] === false ) {
-                            $scope.filteredModel.pop();
-                        }
-                        else {
-                            $scope.filteredModel.push( $scope.inputModel[ i ] );
-                        }
-                    }
-                }
-
-                $scope.filteredModel.reverse();
-
-                $timeout( function() {
-
-                    $scope.getFormElements();
-
-                    // Callback: on filter change
-                    if ( $scope.inputLabel.labelFilter.length >= vMinSearchLength ) {
-
-                        var filterObj = [];
-
-                        angular.forEach( $scope.filteredModel, function( value, key ) {
-                            if ( typeof value !== 'undefined' ) {
-                                if ( typeof value[ attrs.groupProperty ] === 'undefined' ) {
-                                    var tempObj = angular.copy( value );
-                                    var index = filterObj.push( tempObj );
-                                    delete filterObj[ index - 1 ][ $scope.indexProperty ];
-                                    delete filterObj[ index - 1 ][ $scope.spacingProperty ];
-                                }
-                            }
-                        });
-
-                        $scope.onSearchChange({
-                            data:
-                            {
-                                keyword: $scope.inputLabel.labelFilter,
-                                result: filterObj
-                            }
-                        });
-                    }
-                },0);
+	                $scope.onSearchChange({
+	                    data:
+	                    {
+	                        keyword: $scope.inputLabel.labelFilter,
+	                    }
+	                });
+				}
             };
 
             // List all the input elements. We need this for our keyboard navigation.
