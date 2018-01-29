@@ -1,4 +1,4 @@
-### v4.0.0
+### v4.0.1
 ##### Added / Updated
 - You can now customize output-model properties that you need, instead of having all data.
 - <a href="https://github.com/isteven/angular-multi-select/issues/201">#201</a> (and other related issues) DOM bug is now fixed.
@@ -6,7 +6,7 @@
 - <a href="https://github.com/isteven/angular-multi-select/issues/207">#207</a> (and other related issues) You can now update the directive by modifying the input-model as usual.
 
 ##### Deprecated / Breaking Changes
-- input-model behaviour is now back like v2.x.x. If you don't re-use your input-model, you should be safe. 
+- input-model behaviour is now back like v2.x.x. If you don't re-use your input-model, you should be safe.
 
 ### v3.0.0
 ##### Added / Updated
@@ -38,7 +38,7 @@
 ##### Added / Updated
 - Unlimited nested grouping. Group headers are clickable to select / deselect all items under the group. Group headers are filter aware, means it will only affect filtered result.
 - Helper buttons are now filter aware as well (For example, if you filter something and click 'Select All', the directive will tick all of the filtered result only. Same goes with 'Select None' and 'Reset' )
-- Supports arrow key navigation (up, down, left, right, and spacebar). 
+- Supports arrow key navigation (up, down, left, right, and spacebar).
 - New CSS styling
 - default-label attribute. You can define your default text on the button when nothing is selected.
 - on-item-click attribute. This is a callback which will be triggered when a user click an item. Will pass the clicked item to the callback function.
