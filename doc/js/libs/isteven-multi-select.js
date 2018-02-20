@@ -474,7 +474,7 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                     outputProps     = [],
                     tempObj         = {};
 
-                // v4.0.1
+                // v4.0.2
                 if ( typeof attrs.outputProperties !== 'undefined' ) {
                     outputProps = attrs.outputProperties.split(' ');
                     angular.forEach( $scope.inputModel, function( value, key ) {
